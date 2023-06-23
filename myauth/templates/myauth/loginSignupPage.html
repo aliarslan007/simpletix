@@ -1,0 +1,81 @@
+{% extends 'main.html' %} 
+{% block content %}
+
+<!-- main -->
+<main class="container">
+  <h1 class="text-center">
+    Welcome to FaceClone! <br /><small>A simple Facebook clone.</small>
+  </h1>
+
+  <div class="row">
+
+    {% if page == 'login' %}
+    <div class="col-md-6">
+      <h4>Login to start enjoying unlimited fun!</h4>
+
+      <!-- login form -->
+      <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="email"
+            name="email"
+            placeholder="Username"
+          />
+        </div>
+
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+        </div>
+
+        <div class="form-group">
+          <input
+            class="btn btn-primary"
+            type="submit"
+            name="login"
+            value="Login"
+          />
+        </div>
+        <div>
+            <h5>Haven't signed up yet?<a href="{% url 'signUpPage' %}" class="btn btn--link">Sign Up</a>
+        </h5>
+        </div>
+      </form>
+      <!-- ./login form -->
+    </div>
+    {% else %}
+    <div class="col-md-6">
+      <h4>Don't have an account yet? Register!</h4>
+    
+      <!-- register form -->
+      <form method="POST" action="">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="room_name">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+
+        <div class="form-group">
+          <input class="btn btn-success" type="submit" name="register" value="Register"/>
+        </div>
+        <div>
+            <h5>Already have an account ?<a href="{% url 'loginPage' %}" class="btn btn--link">Login Here</a>
+        </h5>
+        </div>
+      </form>
+      <!-- ./register form -->
+    </div>
+    {% endif %}
+  </div>
+</main>
+<!-- ./main -->
+
+{% endblock %}

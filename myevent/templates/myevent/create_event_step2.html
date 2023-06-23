@@ -1,0 +1,11 @@
+<!-- events/create_event_step2.html -->
+
+<form method="POST">
+  {% csrf_token %}
+  {{ form.location.label_tag }}
+  {{ form.location }}
+  {{ form.ticket_price.label_tag }}
+  {{ form.ticket_price }}
+  <!-- Include any remaining fields here -->
+  <button type="submit">Create Event</button>
+</form>

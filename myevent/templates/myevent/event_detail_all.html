@@ -1,0 +1,53 @@
+{% load widget_tweaks %}
+{% load static %}
+{% for event in events %}
+
+<h1>Event Details</h1>
+<div class="event-details">
+    <h2>{{ event.Event_Name }}</h2>
+    <p><strong>Event Type:</strong> {{ event.event_type }}</p>
+    <p><strong>Event Category:</strong> {{ event.event_category }}</p>
+    <p><strong>Event Subcategory:</strong> {{ event.event_subcategory }}</p>
+    <p><strong>Venue:</strong> {{ event.Venue_name }}</p>
+    <p><strong>Description:</strong> {{ event.Event_description }}</p>
+    <img src="{{ event.Event_image.url }}" alt="Event Image">
+    <p><strong>Start Date:</strong> {{ event.start_date }}</p>
+    <p><strong>Start Time:</strong> {{ event.start_time }}</p>
+    <p><strong>End Date:</strong> {{ event.end_date }}</p>
+    <p><strong>End Time:</strong> {{ event.end_time }}</p>
+    <p><strong>Seating Reserved:</strong> {{ event.is_seating_reserved }}</p>
+    <p><strong>Total Capacity:</strong> {{ event.total_capacity_of_event }}</p>
+    {% for ticket in tickets %}
+        {% if ticket.event == event %}
+            <p><strong>Ticket Name:</strong> {{ ticket.ticket_name }}</p>
+            <p><strong>Ticket Type:</strong> {{ ticket.ticket_type }}</p>
+            <p><strong>Ticket Quantities:</strong> {{ ticket.ticket_quantities }}</p>
+            <p><strong>Ticket Price:</strong> {{ ticket.ticket_price }}</p>
+            <!-- Display other ticket fields as needed -->
+        {% endif %}
+    {% empty %}
+        <p>No tickets available for this event.</p>
+    {% endfor %}
+    
+
+  </div>
+  <br>
+<br>
+{% endfor %}
+
+
+<!-- 
+<h2>{{ event.Event_Name }}</h2>
+<img
+      src="{{ event.Event_image.url }}"
+      class="card-img-top member-card-image"
+      alt="Profile Picture"
+    />
+<p>Date: {{ event.start_date|date }}</p> 
+
+<p>Time: {{ event.start_time }}</p>
+<p>Location: {{ event.Venue_name }}</p>
+<p>Description: {{ event.Event_description }}</p>  -->
+<!-- <p>Ticket Price: {{ event.ticket_price }}</p> -->
+
+<!-- You can add more details or customize the template as needed -->

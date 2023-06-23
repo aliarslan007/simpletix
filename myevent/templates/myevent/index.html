@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>Create Event</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <form id="createEventForm" enctype="multipart/form-data" method="POST" action="">
+        <!-- First Page -->
+        {% csrf_token %}
+        <div class="page" id="page1">
+          <h1>Let's create your event</h1>
+          <input
+            type="text"
+            name="Event_Name"
+            placeholder="Event Name"
+            required
+          />
+
+          <label for="event_type">Event Type:</label>
+          <select name="event_type" required>
+            {% for eventType in eventTypes %}
+            <option value="{{ eventType.name }}">{{eventType.name}}</option>
+            {% endfor %}
+          </select>
+          <label for="event_category">Event Category:</label>
+          <select id="event_category" name="event_category">
+            <!-- Add options dynamically from the database -->
+            {% for eventCategory in eventCategories %}
+            <option value="{{ eventCategory.name }}">{{eventCategory.name}}</option>
+            {% endfor %}
+          </select>
+
+          <label for="event_subcategory">Event Subcategory:</label>
+          <select id="event_subcategory" name="event_subcategory">
+            <!-- Add options dynamically from the database -->
+            {% for eventSubCategory in eventSubCategories %}
+            <option value="{{ eventSubCategory.name }}">{{eventSubCategory.name}}</option>
+            {% endfor %}
+          </select>
+          <input
+            type="text"
+            name="Venue_name"
+            placeholder="Venue Name"
+            required
+          />
+          <textarea
+            name="Event_description"
+            placeholder="Event Description"
+            required
+          ></textarea>
+          <input type="file" name="Event_image" accept="image/*" required />
+          <button type="button" onclick="nextPage()">Next</button>
+        </div>
+        <!-- Second Page -->
+        <div class="page" id="page2">
+          <h1>Let's setup your ticket</h1>
+          <div>
+            <input
+              type="checkbox"
+              name="is_one_time_event"
+              id="isOneTimeEvent"
+            />
+            <label for="isOneTimeEvent">Is it a one-time event?</label>
+          </div>
+          <div>
+            <label>Start Date:</label>
+            <input type="date" name="start_date" id="startDate" />
+          </div>
+          <div>
+            <label>Start Time:</label>
+            <input type="time" name="start_time" id="startTime" />
+          </div>
+          <div>
+            <label>End Date:</label>
+            <input type="date" name="end_date" id="endDate" />
+          </div>
+          <div>
+            <label>End Time:</label>
+            <input type="time" name="end_time" id="endTime" />
+          </div>
+          <div>
+            <label>Is seating reserved?</label>
+            <div class="checkbox-group">
+              <input
+                type="radio"
+                name="is_seating_reserved"
+                id="seatingReservedYes"
+                value="yes"
+              />
+              <label for="seatingReservedYes">YES</label>
+              <input
+                type="radio"
+                name="is_seating_reserved"
+                id="seatingReservedNo"
+                value="no"
+              />
+              <label for="seatingReservedNo">NO</label>
+            </div>
+          </div>
+          <button type="button" onclick="previousPage()">Previous</button>
+          <button type="button" onclick="nextPage()">Next</button>
+        </div>
+        <!-- Third Page -->
+        <div class="page" id="page3">
+          <h1>Just a few more things to do</h1>
+          <select name="ticket_type" required>
+            {%for ticketType in ticketTypes %}
+            <option value="{{ticketType.name}}" >{{ticketType.name}}</option>
+            {% endfor %}
+          </select>
+          <input
+            type="text"
+            name="ticket_name"
+            placeholder="Ticket Name"
+            required
+          />
+          <input
+            type="number"
+            name="ticket_quantities"
+            placeholder="Ticket Quantities"
+            required
+          />
+          <input
+            type="number"
+            name="ticket_price"
+            placeholder="Ticket Price"
+            required
+          />
+          <input
+            type="number"
+            name="total_capacity_of_event"
+            placeholder="Total Capacity of Event"
+            required
+          />
+          <button type="button" onclick="previousPage()">Previous</button>
+          <button type="submit" form="createEventForm">Done</button>
+        </div>
+        
+      </form>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>
